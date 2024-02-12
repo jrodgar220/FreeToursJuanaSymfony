@@ -1,0 +1,162 @@
+{% include '@EasyAdmin/layout.html.twig' %}
+
+{% block body %}
+<div id="ruta">
+	<table class="table datagrid ">
+		<thead>
+			<tr>
+
+				<th data-column="titulo" class="  header-for-field-text text-" dir="ltr">
+					 Titulo 
+				</th>
+
+				<th data-column="descripcion" class="  header-for-field-text text-" dir="ltr">
+					 Descripcion
+				</th>
+
+				<th data-column="fechadesde" class="  header-for-field-text text-" dir="ltr">
+					                Desde 
+				</th>
+
+				<th data-column="fechahasta" class="  header-for-field-text text-" dir="ltr">
+					<a>
+                                    Hasta 
+                                </a>
+				</th>
+
+				<th data-column="foto" class="  header-for-field-image text-center" dir="ltr">
+					<a> Foto <i class="fa fa-fw fa-sort"></i>
+                                </a>
+				</th>
+
+				<th class="actions-as-dropdown-table-head" dir="ltr">
+					<span class="sr-only">Actions</span>
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
+        {% for ruta in listaRutas %}
+            
+			<tr data-id={{ ruta.id }}>
+				
+
+				<td data-column="titulo" data-label="Titulo" class=" text- field-text" dir="ltr">
+					<span title={{ ruta.getTitulo() }}>{{ ruta.getTitulo()}}</span>
+
+				</td>
+				<td data-column="descripcion" data-label="Descripcion" class=" text- field-text" dir="ltr">
+					<span title={{ ruta.getDescripcion() }}>{{ ruta.getDescripcion() }}</span>
+
+				</td>
+				<td data-column="fechadesde" data-label="Fecha Desde" class=" text- field-text" dir="ltr">
+					<span title={{ ruta.getFechaDesde() }}>{{ ruta.getFechaDesde() }}</span>
+
+				</td>
+				<td data-column="fechahasta" data-label="Fecha Hasta" class=" text- field-text" dir="ltr">
+					<span title={{ ruta.getFechaHasta() }}>{{ ruta.getFechaHasta() }}</span>
+
+				</td>
+				<td data-column="foto" data-label="Foto" class=" text-center field-image" dir="ltr">
+
+					<a href="#" class="ea-lightbox-thumbnail" data-ea-lightbox-content-selector="#ea-lightbox-01HP6RXSYS93SS1114RK92DYY6-1">
+						<img src="/uploads/rutas/{{ruta.getFoto()}}" class="img-fluid">
+					</a>
+
+					<div id="ea-lightbox-01HP6RXSYS93SS1114RK92DYY6-1" class="ea-lightbox">
+						<img src="/uploads/rutas/"{{ruta.getFoto()}} >
+					</div>
+
+				</td>
+
+				<td class="actions actions-as-dropdown">
+					<div class="dropdown dropdown-actions">
+						<a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<svg xmlns="http://www.w3.org/2000/svg" height="21" width="21" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                                                </svg>
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item action-detail" href="http://localhost:8000/admin?crudAction=detail&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="detail"><span class="action-label">Show</span></a>
+
+							<a class="dropdown-item action-edit" href="http://localhost:8000/admin?crudAction=edit&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="edit"><span class="action-label">Edit</span></a>
+
+							<a class="dropdown-item action-delete text-danger" href="http://localhost:8000/admin?crudAction=delete&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="delete" formaction="http://localhost:8000/admin?crudAction=delete&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2" data-bs-toggle="modal" data-bs-target="#modal-delete"><span class="action-label">Delete</span></a>
+
+						</div>
+					</div>
+				</td>
+			</tr>
+        {% endfor %}
+
+
+		</tbody>
+
+		<tfoot>
+		</tfoot>
+	</table>
+
+	<div class="content-panel-footer without-padding without-border">
+
+		<div class="list-pagination">
+			<div class="list-pagination-counter">
+				<strong>{{listaRutas|length}}</strong> results
+			</div>
+		</div>
+
+	</div>
+
+	<form class="d-none" method="post" id="delete-form">
+		<input type="hidden" name="token" value="33213777ebf9ae475b6cf48cf0c8.O837P-01OHV4helBoY60TeDcG4Sv9APSNMmT0XMkSKk.Ur2jTrh3dRka2rsr-NncdJDpXdH6l1GFQ6LXnxlMBeAI-soSjltgPCzH2Q">
+	</form>
+
+	<div id="modal-delete" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h4>Do you really want to delete this item?</h4>
+					<p>There is no undo for this operation.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
+                    <span class="btn-label">Cancel</span>
+                </button>
+
+					<button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="modal-delete-button" form="delete-form">
+                    <span class="btn-label">Delete</span>
+                </button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="modal-batch-action" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h4 id="batch-action-confirmation-title">You are going to apply the "%action_name%" action to %num_items% item(s).</h4>
+					<p>There is no undo for this operation.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
+                    <span class="btn-label">Cancel</span>
+                </button>
+					<button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="modal-batch-action-button">
+                    <i class="fa fa-fw fa-check"></i>
+                    <span class="btn-label">Proceed</span>
+                </button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('js/listadorutas.js') }}"></script>
+
+{% endblock %}

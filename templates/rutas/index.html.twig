@@ -1,0 +1,163 @@
+{% include '@EasyAdmin/layout.html.twig'  %}
+
+
+
+<div id="ruta"  >
+    <form id="ruta_form" enctype="multipart/form-data">
+    <h2>Nueva Ruta</h2>
+
+    <button type="submit" id="procesar" class="btn btn-primary">Guardar</button>
+
+    <div class="row"  >
+
+        <div class="col-md-6">
+            <!-- Titulo -->
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+
+           
+
+            <!-- Descripcion -->
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <!-- Fechas -->
+            <div class="row form-group">
+                <div class=" col md-3 ">
+                    <label for="fechadesde">Fecha Desde:</label>
+                    <input type="text" class="form-control datepicker" id="fechadesde" name="fechadesde" required>
+                </div>
+                <div class="col md-3 ">
+                    <label for="fechahasta">Fecha Hasta:</label>
+                    <input type="text" class="form-control datepicker" id="fechahasta" name="fechahasta" required>
+                </div>
+            </div>
+             <div class="row form-group">
+                <!-- Foto -->
+                <div class="col md-3">
+                    <label for="foto">Foto:</label>
+                    <div class="input-group">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2048576" />
+                        <input class="form-control" id='foto' name="foto" type="file" /><br>
+                    </div>   
+                </div>
+                <!-- Localización -->
+                <div class="col md-3">
+                    <label for="punto">Punto de encuentro:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Item_latitud" name="pe_latitud" required>
+                        <input type="text" class="form-control" id="Item_longitud" name="pe_longitud" required>
+                        <input class="btn form-control"value="Buscar" id='buscar' name="buscar" type="button" /><br>
+
+                    </div>   
+                </div>
+            </div>
+            <!-- Localidad -->
+            <div class=" form-group">
+                <label for="localidad">Localidad:</label>
+                <select id="autocompleteSelect" class="form-control" id="localidad" name="localidad" required></select>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+           <div class="form-group" id="autocomplete">
+                <label for="punto">Sitios a visitar:</label>
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar item...">
+                <div id="autocompleteList"></div>
+            </div>
+            <div id="selectedItems">
+                <ul id="selectedList"></ul>
+            </div>
+        </div>
+    </div>
+    <!-- Programacion -->
+    <div class="form-group ">
+        <label for="programacion">Programación:</label>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miércoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Sábado</th>
+                            <th>Domingo</th>
+                            <th>Guia asignado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="programacion-container">
+                        <tr>
+                            <td><input type="time" name="ruta[programacion][lunes][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][martes][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][miercoles][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][jueves][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][viernes][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][sabado][]" class="form-control" placeholder="Hora"></td>
+                            <td><input type="time" name="ruta[programacion][domingo][]" class="form-control" placeholder="Hora"></td>
+                            <td><select name="guia" id="selectGuias" class="form-control"></select></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" id="agregar-hora">Agregar Hora</button>
+            </div>
+
+    </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+            <input type="button" class="close-btn" value="X" id="close-modal">
+            <h2>Ingrese una dirección</h2>
+            <div class="input-container form-group">
+                <input class="form-input" type="text" id="direccion-modal">  
+                <input type="button" class="btn"  id="buscar-modal" value="Buscar"/>
+            </div>
+
+            <div id="mapa-modal"></div>
+            <button class="btn modal-button" id="volver">Guardar</button>
+        </div> 
+
+        </div> 
+        
+
+
+
+                
+        
+
+    </form>
+         
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDeXNRT5we4NFDzjajuV1_T1cv_Wgbc-ic'></script>
+<script src="{{ asset('js/rutas.js') }}"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('styles/rutas.css') }}">
+<link rel="stylesheet" href="{{ asset('styles/modalgeo.css') }}">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

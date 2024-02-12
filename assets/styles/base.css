@@ -1,0 +1,41 @@
+body {
+    background-color: #d7dce0; /* Fondo de la página en rojo pastel */
+}
+
+.container {
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+
+footer {
+    text-align: center;
+    clear: both;
+    background-color: #51738a; /* Fondo azul claro */
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+
+.redes-sociales {
+    margin-bottom: 20px;
+}
+
+.icono {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #fff; /* Fondo blanco para los iconos redondos */
+    border-radius: 50%; /* Hace que los iconos sean redondos */
+    margin: 5px;
+    padding: 5px;
+}
+
+.icono img {
+    max-width: 100%;
+    max-height: 100%;
+}
+

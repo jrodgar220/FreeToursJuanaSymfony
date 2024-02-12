@@ -1,0 +1,44 @@
+
+#selectedItems {
+    margin-top: 20px;
+}
+
+#selectedItems ul {
+    padding: 0px;   
+    list-style: none; 
+}
+
+#autocompleteList {
+    background-color: white;
+    border: solid #808080a1 1px;
+    border-radius: 5px
+}
+.selectedItem {
+    float: left;
+    margin: 10px;
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.selectedItem img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.removeItem {
+    cursor: pointer;
+    color: red;
+}
+
+.select2-container{
+    height: 35px;
+}

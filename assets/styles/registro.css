@@ -1,0 +1,45 @@
+
+
+.container {
+    background-color: #ffffff; /* Fondo del formulario en blanco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    display: flex;
+    color: #51738a;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.form-horizontal .form-group {
+    margin-bottom: 15px;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+    font-weight: bold;
+
+}
+
+.form-horizontal .col-sm-12 {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #51738a !important; /* Botón en rojo pastel */
+    color: #ffffff;
+    width: 100%;
+    border-color: #51738a !important; /* Color del borde en rojo */
+
+}
+.btn-primary:hover {
+    background-color: #132c4d !important; /* Botón en rojo pastel */
+    color: #ffffff;
+}

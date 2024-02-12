@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{% block stylesheets %}
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+			<link rel="stylesheet" href="{{asset('styles/base.css')}}">
+			<link rel="stylesheet" href="{{asset('styles/app.css')}}">
+			<link rel="stylesheet" href="{{asset('styles/tourcard.css')}}">
+
+
+		{% endblock %}
+		{% block javascripts %}
+
+			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script src="{{ asset('js/index.js') }}"></script>
+
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/"><img height="100px" src="https://freetoursandalucia.com/wp-content/uploads/2021/08/Free_Tours_Andalucia_Logo.png"></img>
+		</a>
+		{% if app.user %}
+			Bienvenido:
+			{{ app.user.email }}
+		{% endif %}
+		<!-- Botón para el menú desplegable en pantallas pequeñas -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<div class="navbar-nav ml-auto">
+				{% if app.user is not null and 'ROLE_ADIMIN' in app.user.roles %}
+					<a class="nav-item nav-link" href="/admin">Panel de control</a>
+				{% endif %}
+				{% if app.user is  null  %}
+					<a class="nav-item nav-link" href="/register">Registro</a>
+					<a class="nav-item nav-link" href="/login">Login</a>
+				{% endif %}
+				{% if app.user is not  null  %}
+					<a class="nav-item nav-link" href="/logout">Logout</a>
+
+				{% endif %}
+
+			</div>
+		</div>
+	</body>
+</html></nav>{% block body %}
+
+<div class=" main-slider__item" style="background-image: url(/fondo.jpg);">
+	<div class="container d-flex align-items-center ">
+		<div class="align-self-center col-6">
+
+			<h1 class="main-slider__title">
+				Encuentra tu ruta perfecta!
+			</h1>
+		</div>
+		<div class="align-self-center col-4">
+				<input placeholder="Elige la fecha" type="text" class="fecha form-control datepicker" id="fecha" name="fecha" required>
+				<select id="autocompleteSelect" class="form-control" id="localidad" name="localidad" required></select>
+
+		</div>
+		
+		<div class="align-self-center col-4">
+				<input type="button" class="btn btn-secondary" id="buscar" value="Buscar">
+
+		</div>
+		
+			
+	</div>
+	
+</div>
+<div class="container " id="listarutas">
+
+	
+	
+
+
+</div>{% endblock %}<footer><div class="redes-sociales">
+<a href="#" class="icono"><img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/facebook_logo_icon_147291.png" alt="Facebook"></a>
+<a href="#" class="icono"><img src="https://static.vecteezy.com/system/resources/previews/017/743/717/non_2x/instagram-icon-logo-free-png.png" alt="Twitter"></a>
+<a href="#" class="icono"><img src="https://cdn-icons-png.flaticon.com/512/889/889154.png" alt="Instagram"></a></div><div>
+Piérdete en los tours de Juana</div></footer></body></html>

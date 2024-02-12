@@ -1,0 +1,36 @@
+.main-content, .content-header {
+
+    background-color:#f8f9fa!important ;
+}
+
+.content-top {
+    background-color: #d7dce0;
+}
+.sidebar, .responsive-header {
+    background-color:    #51738a
+    ;
+}
+
+.main-header #header-logo a {
+    color: white;
+}
+
+#main-menu .menu .menu-icon, 
+#main-menu .menu  .menu-item-contents,
+#navigation-toggler,
+.responsive-header #responsive-header-logo a ,
+.datagrid thead a, i{
+    color: whitesmoke;
+}
+i.warning {
+    color: rgb(224, 148, 17) !important;
+
+}
+
+.table.datagrid thead th,
+.btn-primary {
+    background-color: #51738a;
+}
+.btn-primary:hover {
+    background-color: #51738a;
+}

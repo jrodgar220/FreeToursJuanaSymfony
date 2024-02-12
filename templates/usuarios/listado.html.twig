@@ -1,0 +1,72 @@
+{% extends 'home.html.twig' %}
+
+{% block body %}
+
+
+    <h1>Lista de Usuarios</h1>
+
+    {% for user in usuarios %}
+    <div class="user-container border p-3 my-3">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Contraseña:</strong> ********</p>
+                <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label for="role_{{ user.id }}"><strong>Rol:</strong></label>
+                    <div class=" d-flex align-items-center">
+                        <div>
+                            <select class="form-control" name="role" id="role_{{ user.id }}" disabled>
+                                <option disabled selected>Elige rol</option>
+                                <option value="ROLE_CLIENTE" {% if 'ROLE_CLIENTE' in user.roles %}selected{% endif %}>Cliente</option>
+                                <option value="ROLE_GUIA" {% if 'ROLE_GUIA' in user.roles %}selected{% endif %}>Guía</option>
+                            </select>
+                        </div>
+                        <div class="btn-group col-md-2" role="group" >
+                            <button type="button" class="btn btn-primary" onclick="saveChanges({{ user.id }})">Guardar</button>
+                            <button type="button" class="btn btn-secondary" onclick="enableEditing({{ user.id }})">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <hr>
+{% endfor %}
+
+
+
+    <script>
+        var editingId = null;
+        document.querySelectorAll('.user-container select').forEach(function (select) {
+                select.disabled = true;
+            });
+        function enableEditing(userId) {
+            // Desactivar la edición para todos los usuarios
+            document.querySelectorAll('.user-container select').forEach(function (select) {
+                select.disabled = true;
+            });
+            // Activar la edición solo para el usuario seleccionado
+            document.getElementById('role_' + userId).disabled = false;
+            // Guardar el ID del usuario que está siendo editado
+            editingId = userId;
+        }
+
+        function saveChanges(userId) {
+            // Lógica para guardar los cambios, por ejemplo, a través de una solicitud AJAX
+
+            // Desactivar la edición para todos los usuarios después de guardar
+            document.querySelectorAll('.user-container select').forEach(function (select) {
+                select.disabled = true;
+            });
+
+            // Reiniciar el ID de edición
+            editingId = null;
+        }
+    </script>
+    
+
+{% endblock %}

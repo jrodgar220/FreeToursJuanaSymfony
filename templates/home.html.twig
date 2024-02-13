@@ -44,7 +44,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<div class="navbar-nav ml-auto">
-				{% if app.user is not null and 'ROLE_ADIMIN' in app.user.roles %}
+				{% if app.user is not null and 'ROLE_ADMIN' in app.user.roles %}
 					<a class="nav-item nav-link" href="/admin">Panel de control</a>
 				{% endif %}
 				{% if app.user is  null  %}

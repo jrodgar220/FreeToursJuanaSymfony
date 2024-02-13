@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 #[Route('/usuarios')]
 class UsuariosController extends AbstractController
 { 
-    #[Route('/', name:'mostrar_usuario', methods: ['GET'])]
+    #[Route('/', name:'mostrar_usuarioS', methods: ['GET'])]
     public function show(SerializerInterface $serializer,UserRepository $userRepository): Response
     {
         $listaUsuarios = $userRepository->findAll();

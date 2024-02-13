@@ -23,7 +23,7 @@ class Informe
     private ?float $dinerorecaudado = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?tour $tour = null;
+    private ?Tour $tour = null;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class Informe
         return $this;
     }
 
-    public function getTour(): ?tour
+    public function getTour(): ?Tour
     {
         return $this->tour;
     }
 
-    public function setTour(?tour $tour): static
+    public function setTour(?Tour $tour): static
     {
         $this->tour = $tour;
 

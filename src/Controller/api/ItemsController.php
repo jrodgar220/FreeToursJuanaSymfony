@@ -22,7 +22,6 @@ class ItemsController extends AbstractController
     public function listarUsuarios(SerializerInterface $serializer, ItemRepository $itemRepository): Response
     {
         $listaItems = $itemRepository->findAll();
-        //$jsonData = $serializer->serialize($listaItems, 'json');
         return new JsonResponse ($listaItems, Response::HTTP_OK);
     }
 

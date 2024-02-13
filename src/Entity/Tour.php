@@ -137,23 +137,33 @@ class Tour implements \JsonSerializable
     }
 
     public function jsonSerialize() {
+        $reservas = [];
+        foreach ($this->reservas as $reserva) {
+            $reservas[] = $reserva->serialize();
+        }
         return [
             'id' => $this->id,
             'fecha' => $this->fecha,
             'hora' => $this->hora,
             'cancelado' => $this->cancelado,
             'ruta' => $this->ruta,
-            'guia' => $this->guia
+            'guia' => $this->guia,
+            'reservas' => $reservas,
 
         ];
     }
     public function serialize() {
+        $reservas = [];
+        foreach ($this->reservas as $reserva) {
+            $reservas[] = $reserva->serialize();
+        }
         return [
             'id' => $this->id,
             'fecha' => $this->fecha,
             'hora' => $this->hora,
             'cancelado' => $this->cancelado,
-            'guia' => $this->guia
+            'guia' => $this->guia,
+            'reservas' => $reservas
 
         ];
     }

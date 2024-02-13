@@ -9,20 +9,20 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservaRepository::class)]
-class Reserva
+class Reserva implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tour')]
+    #[ORM\ManyToOne(inversedBy: 'reservas')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $usuario = null;
+    private ?User $usuario = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservas')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?tour $tour = null;
+    private ?Tour $tour = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
@@ -30,17 +30,32 @@ class Reserva
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $hora = null;
 
-    #[ORM\OneToMany(mappedBy: 'reserva', targetEntity: Valoracion::class)]
-    private Collection $valoraciones;
+    #[ORM\OneToOne(inversedBy: 'reserva')]
+    private Valoracion $valoracion;
+
+    #[ORM\Column(nullable: false)]
+    private ?int $asistentes = null;
+
 
     public function __construct()
     {
-        $this->valoraciones = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAsistentes(): ?user
+    {
+        return $this->asistentes;
+    }
+
+    public function setAsistentes(?int $asistentes): static
+    {
+        $this->asistentes = $asistentes;
+
+        return $this;
     }
 
     public function getUsuario(): ?user
@@ -91,33 +106,44 @@ class Reserva
         return $this;
     }
 
-    /**
-     * @return Collection<int, Valoracion>
-     */
-    public function getValoraciones(): Collection
+    
+    public function getValoracion(): Valoracion
     {
-        return $this->valoraciones;
+        return $this->valoracion;
     }
 
-    public function addValoracione(Valoracion $valoracione): static
+    
+
+    public function setValoracion(?Valoracion $valoracion): static
     {
-        if (!$this->valoraciones->contains($valoracione)) {
-            $this->valoraciones->add($valoracione);
-            $valoracione->setReserva($this);
-        }
+        $this->valoracion = $valoracion;
 
         return $this;
     }
 
-    public function removeValoracione(Valoracion $valoracione): static
+    public function serialize()
     {
-        if ($this->valoraciones->removeElement($valoracione)) {
-            // set the owning side to null (unless already changed)
-            if ($valoracione->getReserva() === $this) {
-                $valoracione->setReserva(null);
-            }
-        }
+        return [
+            "id"=> $this->id,
+            "fechareserva"=> $this->fecha,
+            "valoracion"=> $this->valoracion,
+            "usuario"=> $this->usuario->serialize(),
+            "asistentes"=>$this->asistentes
 
-        return $this;
+            
+
+        ];
+    }
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->id,
+            "fechareserva"=> $this->fecha,
+            "valoracion"=> $this->valoracion,
+            "infotourruta"=> $this->tour,
+            "asistentes"=>$this->asistentes
+            
+
+        ];
     }
 }

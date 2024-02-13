@@ -34,6 +34,17 @@ class TourRepository extends ServiceEntityRepository
             ->getResult();
     }
     
+    public function findToursByGuia(int $idGuia): array
+    {
+        
+        return $this->createQueryBuilder('t')
+            
+            ->andWhere('t.guia = :guia')
+            ->setParameter('guia', $idGuia)
+            ->getQuery()
+            ->getResult();
+    }
+    
 //    /**
 //     * @return Tour[] Returns an array of Tour objects
 //     */

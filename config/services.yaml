@@ -6,6 +6,7 @@
 parameters:
     your_upload_directory: '%kernel.project_dir%/public/uploads'
     upload_rutas_directory: '%kernel.project_dir%/public/uploads/rutas'
+    upload_informes_directory: '%kernel.project_dir%/public/uploads/informes'
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +31,11 @@ services:
     App\Service\TourCanceladoService:
         arguments: ['@event_dispatcher']
     
-    App\EventSubscriber\ItemSubscriber:
+    App\EventListener\ListenerEntidades:
         tags:
-            - { name: 'doctrine.event_subscriber' }
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postPersist }
+
+    App\EventSubscriber\AdminCheckSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }

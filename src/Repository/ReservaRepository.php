@@ -44,5 +44,21 @@ class ReservaRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
 
     }
+
+    public function existeReserva(int $idTour, int $idUser): bool
+    {
+    
+        $reserva= $this->createQueryBuilder('r')
+            ->andWhere('r.tour = :idTour')
+            ->andWhere('r.usuario = :idUser')
+            ->setParameter('idUser', $idUser)
+            ->setParameter('idTour', $idTour)
+            ->getQuery()
+            ->getOneOrNullResult();
+        if($reserva !=null)
+            return true;
+        return false;
+
+    }
  
 }

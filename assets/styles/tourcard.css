@@ -54,6 +54,7 @@
 }
 
 .tour-card__title {
+    margin-left: 15px;
     margin-right: 5px;
     color: #393939;
     font-size: 20px;
@@ -259,6 +260,7 @@
 }
 
 .tour-card__text {
+    margin-left: 15px;
     max-width: 550px;
     margin-bottom: 16px;
     line-height: 1.5;
@@ -508,6 +510,7 @@
 
     .tour-card__title {
         width: 100%;
+        margin-left: 15px;
         margin-bottom: -2px;
         font-size: 22px;
         line-height: 1.18;

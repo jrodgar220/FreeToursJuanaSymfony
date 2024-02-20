@@ -47,6 +47,12 @@
 				{% if app.user is not null and 'ROLE_ADMIN' in app.user.roles %}
 					<a class="nav-item nav-link" href="/admin">Panel de control</a>
 				{% endif %}
+				{% if app.user is not null and 'ROLE_USER' in app.user.roles %}
+					<a class="nav-item nav-link" href="/reservas/misreservas">Mis reservas</a>
+				{% endif %}
+				{% if app.user is not null and 'ROLE_GUIA' in app.user.roles %}
+					<a class="nav-item nav-link" href="/tours/toursasignados">Rutas a cargo</a>
+				{% endif %}
 				{% if app.user is  null  %}
 					<a class="nav-item nav-link" href="/register">Registro</a>
 					<a class="nav-item nav-link" href="/login">Login</a>

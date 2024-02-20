@@ -1,0 +1,164 @@
+{% extends 'home.html.twig' %}
+{% block stylesheets %}
+	{{ parent()}}
+	<link rel="stylesheet" href="{{asset('styles/vistareservas.css')}}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+{% endblock %}
+
+{% block body %}
+	<!-- Modal para la lista de asistentes -->
+	<div class="modal fade" id="modalLista" tabindex="-1" role="dialog" aria-labelledby="modalListaLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalListaLabel">Lista de Asistentes</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="formListaAsistentes">
+						<div
+							id="listaAsistentes"><!-- Aquí se cargarán dinámicamente los asistentes -->
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal para  informe -->
+
+	<div class="modal fade" id="modalInforme" tabindex="-1" role="dialog" aria-labelledby="modalInformeLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalInformeLabel">Generar Informe</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="formInforme" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="observaciones">Observaciones:</label>
+							<textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="dineroRecaudado">Dinero Recaudado:</label>
+							<input type="number" class="form-control" id="dineroRecaudado" name="dinerorecaudado">
+						</div>
+						<div class="form-group">
+							<label for="archivoInforme">Adjuntar archivo:</label>
+							<input type="hidden" name="MAX_FILE_SIZE" value="2048576"/>
+							<input class="form-control" id="archivoInforme" name="archivoInforme" type="file"/><br>
+						</div>
+						<div class="modal-footer justify-content-end">
+							<button type="submit" class="btn btn-orange-primary">Generar Informe</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row justify-content-center">
+		<div class="col-md-10">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="tours-pasados-tab" data-toggle="tab" href="#tours-pasados" role="tab" aria-controls="tours-pasados" aria-selected="true">Tours Pasados</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="tours-pendientes-tab" data-toggle="tab" href="#tours-pendientes" role="tab" aria-controls="tours-pendientes" aria-selected="false">Tours Pendientes</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div
+					class="tab-pane fade show active" id="tours-pasados" role="tabpanel" aria-labelledby="tours-pasados-tab">
+					<!-- Tabla de tours pasados -->
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Ruta</th>
+								<th>Fecha</th>
+								<th>Hora</th>
+								<th>Asistentes</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for tour in toursPasados %}
+								<tr>
+									<td>{{ tour.ruta.titulo }}</td>
+									<td>{{ tour.fecha|date('Y-m-d') }}</td>
+									<td>{{ tour.hora|date('H:i:s') }}</td>
+									<td>
+										<span class="asistentes">{{ tour.getAsistentes() }}</span>
+									</td>
+									<td>
+										{% if tour.informe is not null %}
+											<p>
+												Ya se ha generado el informe.
+											</p>
+										{% else %}
+											<button data-idtour="{{ tour.id }}" class="btn-orange btn-sm btn-outline-success btn-informe">
+												<i class="fa fa-file-alt"></i>
+												Generar Informe
+											</button>
+										{% endif %}
+
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div
+					class="tab-pane fade" id="tours-pendientes" role="tabpanel" aria-labelledby="tours-pendientes-tab">
+					<!-- Tabla de tours pendientes -->
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Ruta</th>
+								<th>Fecha</th>
+								<th>Hora</th>
+								<th>Asistentes</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for tour in toursPendientes %}
+								<tr>
+									<td>{{ tour.ruta.titulo }}</td>
+									<td>{{ tour.fecha|date('Y-m-d') }}</td>
+									<td>{{ tour.hora|date('H:i:s') }}</td>
+									<td>
+										<span class="asistentes">{{ tour.getAsistentes() }}</span>
+									</td>
+									<td>
+										<button data-idtour="{{ tour.id }}" class="btn-sm btn-outline-primary btn-pasar-lista">
+											<i class="far fa-check-circle"></i>
+											Pasar lista
+										</button>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="{{ asset('js/pasarlista.js') }}"></script>
+	<script src="{{ asset('js/generarinforme.js') }}"></script>
+
+
+{% endblock %}

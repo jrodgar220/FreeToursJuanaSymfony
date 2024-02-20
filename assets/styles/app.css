@@ -50,7 +50,13 @@
 
 
 
+.cancelado{
+    background-color: #c5babd !important;
+}
 
-
+.error{
+    color: red;
+    font-style: italic;
+}
 
 

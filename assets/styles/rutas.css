@@ -23,14 +23,12 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    width: 100px;
-    height: 100px;
+    width: 125px;
 }
 
 .selectedItem img {
     max-width: 100px;
     max-height: 100px;
-    margin-right: 10px;
     border-radius: 5px;
 }
 

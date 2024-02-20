@@ -1,5 +1,5 @@
 body {
-    background-color: #d7dce0; /* Fondo de la página en rojo pastel */
+    background-color: #d7dce0 !important; /* Fondo de la página en rojo pastel */
 }
 
 .container {

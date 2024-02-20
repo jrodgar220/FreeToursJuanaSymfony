@@ -1,0 +1,115 @@
+.carousel-item img {
+    width: 600px;
+    height: 300px;
+}
+
+#map {
+    height: 400px;
+    width: 80%;
+    margin: auto;
+    
+}
+
+
+
+.ruta-image {
+    margin-bottom: 20px;
+}
+
+.ruta-container {
+    margin-top: 4px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+.items-section, .tour-list {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 8px;
+}
+
+
+.mapa-section {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mapa-section h2 {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.tour-item {
+    border: 1px solid #ddd; /* Borde del recuadro */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Bordes redondeados */
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido */
+}
+
+.tour-info {
+    flex: 1; /* El contenido ocupa todo el espacio disponible */
+}
+
+.btn-centrado {
+    display: flex;
+    justify-content: center;
+}
+.btn-orange {
+    background-color: orange; /* Color de fondo naranja */
+    border: none; /* Sin borde */
+    color: #fff; /* Color de texto blanco */
+    padding: 10px 20px; /* Relleno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+}
+
+.btn-orange:hover {
+    background-color: darkorange; /* Cambio de color al pasar el ratón */
+}
+.btn-centrado {
+    display: flex;
+    justify-content: center;
+}
+
+
+.comment-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    overflow: hidden;
+}
+
+.rating {
+    float: right; /* Colocar los ratings en la esquina superior derecha */
+    clear: both; /* Asegurarse de que cada rating se coloque debajo del anterior */
+    margin-top: 5px;
+}
+
+.star {
+    color: gold;
+}
+
+.comment {
+    font-size: 14px;
+    margin-top: 20px;
+}
+

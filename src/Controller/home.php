@@ -27,7 +27,7 @@ class home extends AbstractController
     #[Route('/pdf', name:'pdf')]
     public function pdf(Pdf $knpSnappyPdf):Response 
     {
-        $html = $this->renderView('home.html.twig');
+        $html = $this->renderView('pdfreserva.html.twig');
 
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html),

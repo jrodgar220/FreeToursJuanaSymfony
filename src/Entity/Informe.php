@@ -22,7 +22,7 @@ class Informe
     #[ORM\Column]
     private ?float $dinerorecaudado = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'informe', cascade: ['persist', 'remove'])]
     private ?Tour $tour = null;
 
     public function getId(): ?int
@@ -75,6 +75,12 @@ class Informe
     {
         $this->tour = $tour;
 
+        // Establecer la relación bidireccional
+        if ($tour !== null && $tour->getInforme() !== $this) {
+            $tour->setInforme($this);
+        }
+
         return $this;
     }
+
 }

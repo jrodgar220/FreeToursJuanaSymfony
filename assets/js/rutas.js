@@ -188,7 +188,7 @@
                 dataType: 'JSON',
                 enctype: 'multipart/form-data',
                 method: "POST",
-                url: "./rutas/crear",
+                url: "./rutas/",
                 dataType: 'json',
                 data: form_data,
                 processData: false,
@@ -244,6 +244,7 @@
                 const imagePath = `./uploads/sitios/${item.foto}`;
 
 
+                
                 // Agregar el elemento a la lista de seleccionados
                 const selectedItem = $(`<li id='${item.id}' class='selectedItem'></li>`);
                 selectedItem.append(`<img src="${imagePath}" alt="${item.titulo}">`);

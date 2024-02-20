@@ -24,7 +24,7 @@ class ListenerEntidades
         $entity = $args->getObject();
 
         if ($entity instanceof Item) 
-            $this->mailerService->mandaemail("Nuevo item creado");
+            $this->mailerService->mandaemail("Nuevo item creado", "Nuevo item creado", "jmrg00021@gmail.com");
 
     }
 }

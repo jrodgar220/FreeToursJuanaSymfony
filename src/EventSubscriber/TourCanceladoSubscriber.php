@@ -25,10 +25,13 @@ class TourCanceladoSubscriber implements EventSubscriberInterface
     public function onTourCancelado(TourCanceladoEvent $event)
     {
       
-        // Lógica para manejar el evento
         $tour = $event->getTour();
-        // Envía un correo electrónico a todos los que tienen reservado el tour
-        $this->mailerService->mandaemail("Tour cancelada");
+        $cuerpomensaje="El tour " . $tour->getRuta()->getTitulo(). "con fecha ".$tour->getFecha()->format('Y-m-d')      . 
+        " a las " . $tour->getHora()->format('H:i:s'). " el cual reservó, ha sido cancelado";
+        foreach ($tour->getReservas() as $reserva) {
+            $mail= $reserva->getUsuario()->getEmail();
+            $this->mailerService->mandaemail($cuerpomensaje, "Tour cancelado",$mail);
+        }
             
         }
 

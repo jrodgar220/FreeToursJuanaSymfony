@@ -11,7 +11,7 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\{UserRepository,ItemRepository, TourRepository, ReservaRepository};
-use App\Entity\Ruta;
+use App\Entity\{Ruta,Informe};
 use App\Entity\Tour;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -39,7 +39,7 @@ class ToursController extends AbstractController
     #[Route('/', name: 'lista_tours', methods: ['GET'])]
     public function listarTours(Request $request,SerializerInterface $serializer,TourRepository $tourRepository): Response
     {
-        if($request->attributes->get('_is_admin')){
+        if($request->attributes->get('_is_admin')|| true){
             $lista = $tourRepository->findAll();
             return new JsonResponse ($lista, Response::HTTP_OK);
         }
@@ -72,7 +72,7 @@ class ToursController extends AbstractController
             $tour->setCancelado(true);
             $entityManager->persist($tour);
             $entityManager->flush();
-            $tourCanceladoService->tourCancelado($tour->getId());
+            $tourCanceladoService->tourCancelado($tour);
             return new JsonResponse ($tour, Response::HTTP_OK);
         }
         return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
@@ -90,6 +90,55 @@ class ToursController extends AbstractController
         }
         return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
     }
+
+    #[Route('/asistencia/{id}', name: 'asistencia_tour_inicial', methods: ['GET'])]
+    public function listarAsistentes(Request $request,Tour $tour): Response
+    {
+        if($request->attributes->get('_is_guia')){
+            $reservas=[];
+            $reservas_=$tour->getReservas();
+            foreach ($reservas_ as $reserva) {
+                $reservas[] = $reserva->serialize();
+            }
+            return new JsonResponse ($reservas, Response::HTTP_OK);
+        }
+        return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
+    }
+    #[Route('/toursasignados', name: 'mis_tours_a_cargo', methods: ['GET'])]
+    public function misReservasACargo( Request $request,TourRepository $tourRepository): Response
+    {
+        
+        if($request->attributes->get('_is_guia')){
+            $tours=$tourRepository->findToursByGuia($this->getUser()->getId());
+            
+
+            $hoy = new \DateTime();
+            $hoy->setTime(0, 0, 0);
+
+            $toursPasados = [];
+            $toursPendientes = [];
+
+            foreach ($tours as $tour) {
+                $fechaTour = $tour->getFecha()->setTime(0, 0, 0);
+
+                if ($fechaTour < $hoy) {
+                    $toursPasados[] = $tour;
+                } else {
+                    $toursPendientes[] = $tour;
+                }
+            }
+            
+            return $this->render('tours/toursasignados.html.twig', [
+                'toursPasados' => $toursPasados,
+                'toursPendientes' => $toursPendientes,
+                        ]);
+        }
+
+        return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
+
+       
+    }
+      
 
 
     //Pasar lista
@@ -119,10 +168,10 @@ class ToursController extends AbstractController
 
 
     //Generar informe
-    #[Route('/informe/{id}', name:'crear_ruta', methods: ['POST'])]
+    #[Route('/informe/{id}', name:'crear_informe', methods: ['POST'])]
     public function generarInforme(Tour $tour, Request $request,EntityManagerInterface $entityManager): Response
     {
-        if($$request->attributes->get('_is_guia')){
+        if($request->attributes->get('_is_guia')){
             $datos = json_decode($request->request->get('datos'), true);
             $file = $request->files->get('file');
             $fileName="";
@@ -144,6 +193,7 @@ class ToursController extends AbstractController
             $dinerorecaudado = $datos['dinerorecaudado'];
            
             $informe = new Informe();
+            $informe->setTour($tour);
             $informe->setObservaciones($observaciones);
             $informe->setDinerorecaudado($dinerorecaudado);
             $informe->setFoto($fileName);

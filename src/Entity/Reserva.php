@@ -31,7 +31,7 @@ class Reserva implements \JsonSerializable
     private ?\DateTimeInterface $hora = null;
 
     #[ORM\OneToOne(inversedBy: 'reserva')]
-    private Valoracion $valoracion;
+    private  ?Valoracion $valoracion = null;
 
     #[ORM\Column(nullable: false)]
     private ?int $asistentes = null;
@@ -46,7 +46,7 @@ class Reserva implements \JsonSerializable
         return $this->id;
     }
 
-    public function getAsistentes(): ?user
+    public function getAsistentes(): ?int
     {
         return $this->asistentes;
     }
@@ -107,7 +107,7 @@ class Reserva implements \JsonSerializable
     }
 
     
-    public function getValoracion(): Valoracion
+    public function getValoracion(): ?Valoracion
     {
         return $this->valoracion;
     }
@@ -123,6 +123,9 @@ class Reserva implements \JsonSerializable
 
     public function serialize()
     {
+        if($this->valoracion == null) 
+            $this->valoracion= new Valoracion(); // Or any other default value
+
         return [
             "id"=> $this->id,
             "fechareserva"=> $this->fecha,
@@ -136,6 +139,9 @@ class Reserva implements \JsonSerializable
     }
     public function jsonSerialize()
     {
+        if($this->valoracion == null) 
+            $this->valoracion= new Valoracion(); // Or any other default value
+
         return [
             "id"=> $this->id,
             "fechareserva"=> $this->fecha,

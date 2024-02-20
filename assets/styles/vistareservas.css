@@ -1,0 +1,87 @@
+
+.btn-orange {
+    color: orange !important; /* Color de fondo naranja */
+    
+    border-color: orange !important;
+}
+
+
+.btn-orange-primary {
+    background-color: orange !important; /* Color de fondo naranja */
+    border: none; /* Sin borde */
+    color: #fff !important; /* Color de texto blanco */
+    padding: 10px 20px; /* Relleno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+}
+
+.btn-orange-primary:hover {
+    background-color: darkorange; /* Cambio de color al pasar el ratón */
+}
+
+.btn-orange:hover {
+        color: #fff !important;
+        background-color: darkorange !important;
+        border-color:  darkorange !important;
+        ;
+}
+
+
+.comment-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    overflow: hidden;
+}
+
+.rating {
+    float: right; /* Colocar los ratings en la esquina superior derecha */
+    clear: both; /* Asegurarse de que cada rating se coloque debajo del anterior */
+    margin-top: 5px;
+}
+
+.star {
+    color: gold;
+}
+
+.comment {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+/* Estilo para las tablas con fondo blanco */
+.table {
+    background-color: white; /* Fondo blanco */
+    border-collapse: collapse; /* Colapsar bordes de la tabla */
+}
+
+/* Estilo para las celdas de encabezado */
+.table thead th {
+    background-color: #f8f9fa; /* Color de fondo gris claro */
+    border-bottom: 2px solid #dee2e6; /* Borde inferior gris */
+}
+
+/* Estilo para las celdas de datos */
+.table tbody td {
+    border-bottom: 1px solid #dee2e6; /* Borde inferior gris claro */
+}
+
+/* Estilo para las filas pares */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Fondo gris claro para filas pares */
+}
+
+/* Estilo para las filas impares */
+.table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* Fondo blanco para filas impares */
+}

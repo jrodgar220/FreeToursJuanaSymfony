@@ -30,9 +30,13 @@ class AdminCheckSubscriber implements EventSubscriberInterface
         $isUser=false;
         if ($user!=null && in_array('ROLE_ADMIN', $user->getRoles())) {
             $isAdmin=true;
+            $isUser=true;
+
         }
         if ($user!=null && in_array('ROLE_GUIA', $user->getRoles())) {
             $isGuia=true;
+            $isUser=true;
+
         }
         if ($user!=null && in_array('ROLE_USER', $user->getRoles())) {
             $isUser=true;

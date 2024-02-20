@@ -29,18 +29,21 @@ class RutasController extends AbstractController
         //array horas siempre tiene mínimo un elemento aunque sea vacío, 
         //por lo que hay que comprobarlo
         $tours=[];
-        if($arrayhorasdia[0]!=""){
 
             for($i=0;$i<count($arrayhorasdia);$i++)  {
                 // Crear el objeto tour
-                $tour = new Tour();
-                $tour->setHora(\DateTime::createFromFormat('H:i', $arrayhorasdia[$i]));
-                $tour->setFecha(\DateTime::createFromFormat('d/m/Y', $fecha->format('d/m/Y')));
-                $tour->setGuia($userRepository->find($guias[$i]));
-                $tour->setRuta($ruta);
-                $ruta->addTour($tour);
-               $tours[]=$tour;
-            }
+                if( $arrayhorasdia[$i]!=""){
+                    $tour = new Tour();
+                    $tour->setHora(\DateTime::createFromFormat('H:i', $arrayhorasdia[$i]));
+                    $tour->setFecha(\DateTime::createFromFormat('d/m/Y', $fecha->format('d/m/Y')));
+                    $tour->setGuia($userRepository->find($guias[$i]));
+                    $tour->setRuta($ruta);
+                    $ruta->addTour($tour);
+                   $tours[]=$tour;
+                }
+
+               
+            
         return $tours;
         }
 
@@ -86,10 +89,9 @@ class RutasController extends AbstractController
         
     }
 
-    #[Route('/crear', name:'crear_ruta', methods: ['POST'])]
+    #[Route('/', name:'crear_ruta', methods: ['POST'])]
     public function crearRuta(Request $request,EntityManagerInterface $entityManager, UserRepository $userRepository, ItemRepository $itemRepository): Response
     {
-        if($$request->attributes->get('_is_admin')){
             $datos = json_decode($request->request->get('datos'), true);
             $file = $request->files->get('file');
             $fileName="";
@@ -127,8 +129,8 @@ class RutasController extends AbstractController
             $guias = $datos['guias'];
             $items = $datos['items'];
 
-            //TODO:falta el punto de encuentro
             
+
         
             // Convertir las fechas en objetos DateTime
             $fechaDesdeObj = \DateTime::createFromFormat('d/m/Y', $fechadesde);
@@ -142,6 +144,9 @@ class RutasController extends AbstractController
             $ruta->setFechadesde($fechadesde);
             $ruta->setFechahasta($fechahasta);
             $ruta->setLocalidad($localidad);
+            $ruta->setPeLatitud($datos['pe_latitud']);
+            $ruta->setPeLongitud($datos['pe_longitud']);
+
             //foto
             $ruta->setFoto($fileName);
             //programacion
@@ -203,17 +208,21 @@ class RutasController extends AbstractController
             $entityManager->flush();
 
             return new JsonResponse($datos, Response::HTTP_CREATED);
-        }
-        return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
-        
+      
     }
 
 
     //ACCESIBLE PARA TODOS-----------------------------------------------------------------------------------------
     #[Route('/{id}', name: 'ruta', methods: ['GET'])]
-    public function verRuta(Ruta $ruta): Response
+    public function verRuta(Request $request,Ruta $ruta): Response
     {
-        return new JsonResponse ($ruta, Response::HTTP_OK);
+        $fecha = $request->query->get('fecha');
+
+        return $this->render('rutas/frontend/vistaruta.html.twig', [
+            'ruta' => $ruta,
+            'fecha' => $fecha
+        ]);
+        //return new JsonResponse ($ruta, Response::HTTP_OK);
     }
 
     
@@ -226,8 +235,15 @@ class RutasController extends AbstractController
         if( $datos["fecha"]!="" ){
             $tours = $tourRepository->findToursByFecha($datos["fecha"]);
             foreach ($tours as $tour){
-                if($tour->getRuta()->getLocalidad()==$datos["localidad"])
-                    $rutas[$tour->getRuta()->getId()]= $tour->getRuta()->serialize();
+                if($tour->getRuta()->getLocalidad()==$datos["localidad"]){
+                    $rutaSerializada = $tour->getRuta()->serialize();
+                    $rutaSerializada['cancelado'] = $tour->isCancelado();
+                    $rutaSerializada['asistentes'] = $tour->getAsistentes();
+                    $rutas[$tour->getRuta()->getId()]= $rutaSerializada;
+
+                }
+        
+            
             }
         }else{
             $rutasbd = $rutaRepository->findRutasByLocalidad($datos["localidad"]);

@@ -36,9 +36,29 @@ class Tour implements \JsonSerializable
     #[ORM\OneToMany(mappedBy: 'tour', targetEntity: Reserva::class, orphanRemoval: true)]
     private Collection $reservas;
 
+    #[ORM\OneToOne(mappedBy: 'tour', cascade: ['persist', 'remove'])]
+    private ?Informe $informe = null;
+
     public function __construct()
     {
         $this->reservas = new ArrayCollection();
+    }
+
+    public function getInforme(): ?Informe
+    {
+        return $this->informe;
+    }
+
+    public function setInforme(?Informe $informe): static
+    {
+        $this->informe = $informe;
+
+        // Establecer la relación bidireccional
+        if ($informe !== null && $informe->getTour() !== $this) {
+            $informe->setTour($this);
+        }
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -114,6 +134,20 @@ class Tour implements \JsonSerializable
         return $this->reservas;
     }
 
+    /**
+     * @return Collection<int, Reserva>
+     */
+    public function getAsistentes(): int
+    {
+        
+        $totalAsistentes=0;
+        foreach ($this->reservas as $reserva) {
+            
+            $totalAsistentes += $reserva->getAsistentes();
+        }
+        return $totalAsistentes;    
+    }
+
     public function addReserva(Reserva $reserva): static
     {
         if (!$this->reservas->contains($reserva)) {
@@ -138,11 +172,14 @@ class Tour implements \JsonSerializable
 
     public function jsonSerialize() {
         $reservas = [];
+        $totalAsistentes=0;
         foreach ($this->reservas as $reserva) {
             $reservas[] = $reserva->serialize();
+            $totalAsistentes += $reserva->getAsistentes();
         }
         return [
             'id' => $this->id,
+            'asistentes'=>$totalAsistentes,
             'fecha' => $this->fecha,
             'hora' => $this->hora,
             'cancelado' => $this->cancelado,

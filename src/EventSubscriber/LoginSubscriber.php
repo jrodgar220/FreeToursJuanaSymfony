@@ -29,7 +29,7 @@ class LoginSubscriber implements EventSubscriberInterface
         $user = $event->getAuthenticationToken()->getUser();
 
         // Envía un correo electrónico cada vez que se recibe una solicitud
-        $this->sendEmail("Login hecho de ". $user->getNombre());
+        $this->sendEmail("Login hecho de ". $user->getNombre(), "Login hecho", null);
     
     }
 

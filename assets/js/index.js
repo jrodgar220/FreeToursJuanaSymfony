@@ -88,13 +88,18 @@
 
 
         function cargarDatos(lista){
+            const inputFecha = document.getElementById("fecha").value;
             rutas= Object.entries(lista);
             var nuevoHTML="";
             var contenedor = document.getElementById('listarutas'); // Reemplaza '.container' con el selector adecuado
             rutas.forEach(function(ruta) {
+                var clasecancelado="";
+                var disponibilidad=20-ruta[1].asistentes;
+                if(ruta[1].cancelado)
+                    clasecancelado="cancelado";
                 nuevoHTML += `
-                    <div class="tour-card">
-                        <div class="tour-card__container">
+                    <div class="tour-card ${clasecancelado}">
+                        <div class="tour-card__container " >
                             <div class="col-md-3">
                                 <a href="#" class="tour-card__image tour-card__image--new">
                                     <img src="/uploads/rutas/${ruta[1].foto}">
@@ -105,10 +110,26 @@
                                     <span class="tour-card__title">${ruta[1].titulo}</span>
                                 </div>
                                 <div class="tour-card__text">
-                                ${ruta[1].descripcion}
-                                </div>
+                                ${ruta[1].descripcion}`;
+                                if(ruta[1].cancelado){
+                                    nuevoHTML += `<br>
+                                    <strong>El tour ha sido cancelado </strong> `
+                                }else{
+                                    if(disponibilidad>0){
+                                        nuevoHTML += `<br>
+                                        <strong>Quedan ${disponibilidad} plazas!</strong>`
+                                    }else{
+                                        nuevoHTML += `<br>
+                                        <strong>No quedan plazas plazas!</strong>`
+                                    }
+                                    
+                                }
+                               
+                                    
+                                
+                                nuevoHTML += `  </div>
                                 <div class="tour-card__bottom">
-                                    <a href="#" class="tour-card__details" style="text-transform: none;">
+                                    <a href="./rutas/${ruta[1].id}/?fecha=${inputFecha}" class="tour-card__details" style="text-transform: none;">
                                         Info y Reservas
                                     </a>
                                 </div>

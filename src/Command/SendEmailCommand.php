@@ -29,7 +29,7 @@ class SendEmailCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $text = $input->getArgument('text');
-        $this->mailerService->mandaemail( $text);
+        $this->mailerService->mandaemail( $text, "Mail desde el comando", "jmrg00021@gmail.com");
 
         $output->writeln('Email sent successfully.');
 

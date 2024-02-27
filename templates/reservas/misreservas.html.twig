@@ -8,6 +8,15 @@
 {% endblock %}
 
 {% block body %}
+
+	<div id="customAlert" class="modal-alert">
+		<div class="modal-alert-content">
+			<span class="close">&times;</span>
+			<p id="alertMessage"></p>
+		</div>
+	</div>
+
+
 	<div class="row justify-content-center">
 		<div class="col-md-10">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -19,94 +28,100 @@
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div
-					class="tab-pane fade show active" id="reservas-pasadas" role="tabpanel" aria-labelledby="reservas-pasadas-tab">
-					<!-- Tabla de reservas pasadas -->
-					<table
-						class="table table-striped">
-						<!-- Encabezado de la tabla -->
-						<thead>
-							<tr>
-								<th>Ruta</th>
-								<th>Fecha</th>
-								<th>Hora</th>
-								<th>Contacto Guía</th>
-								<th>Asistentes</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<!-- Cuerpo de la tabla -->
-						<tbody>
-							{% for reserva in reservasPasadas %}
+				<div class="tab-pane fade show active" id="reservas-pasadas" role="tabpanel" aria-labelledby="reservas-pasadas-tab">
+					<div
+						class="table-responsive">
+
+						<!-- Tabla de reservas pasadas -->
+						<table
+							class="table table-striped ">
+							<!-- Encabezado de la tabla -->
+							<thead>
 								<tr>
-									<!-- Datos de la reserva -->
-									<td>{{ reserva.tour.ruta.titulo }}</td>
-									<td>{{ reserva.tour.fecha|date('Y-m-d') }}</td>
-									<td>{{ reserva.tour.hora|date('H:i:s') }}</td>
-									<td>{{ reserva.tour.guia.email }}</td>
-									<td>
-										<span class="asistentes">{{ reserva.asistentes }}</span>
-									</td>
-									<td>
-
-										{% if reserva.valoracion is  null %}
-											<p>
-											Esta reserva ya ha sido valorada.
-											</p>
-										{% else %}
-											<!-- Si la reserva no tiene valoración, mostramos el botón "Valorar" -->
-											<button data-idreserva="{{ reserva.id }}" class="btn-orange btn-sm btn-outline-success btn-valorar">
-												<i class="fas fa-star"></i>
-											</button>
-										{% endif %}
-
-									</td>
+									<th>Ruta</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Contacto Guía</th>
+									<th>Asistentes</th>
+									<th>Acciones</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+							</thead>
+							<!-- Cuerpo de la tabla -->
+							<tbody>
+								{% for reserva in reservasPasadas %}
+									<tr>
+										<!-- Datos de la reserva -->
+										<td>{{ reserva.tour.ruta.titulo }}</td>
+										<td>{{ reserva.tour.fecha|date('Y-m-d') }}</td>
+										<td>{{ reserva.tour.hora|date('H:i:s') }}</td>
+										<td>{{ reserva.tour.guia.email }}</td>
+										<td>
+											<span class="asistentes">{{ reserva.asistentes }}</span>
+										</td>
+										<td>
+
+											{% if reserva.valoracion is not  null %}
+												<p>
+													Esta reserva ya ha sido valorada.
+												</p>
+											{% else %}
+												<!-- Si la reserva no tiene valoración, mostramos el botón "Valorar" -->
+												<button data-idreserva="{{ reserva.id }}" class="btn-orange btn-sm btn-outline-success btn-valorar">
+													<i class="fas fa-star"></i>
+												</button>
+											{% endif %}
+
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<div
-					class="tab-pane fade" id="reservas-pendientes" role="tabpanel" aria-labelledby="reservas-pendientes-tab">
-					<!-- Tabla de reservas pendientes -->
-					<table
-						class="table table-striped">
-						<!-- Encabezado de la tabla -->
-						<thead>
-							<tr>
-								<th>Ruta</th>
-								<th>Fecha</th>
-								<th>Hora</th>
-								<th>Contacto Guía</th>
-								<th>Asistentes</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<!-- Cuerpo de la tabla -->
-						<tbody>
-							{% for reserva in reservasPendientes %}
+				<div class="tab-pane fade" id="reservas-pendientes" role="tabpanel" aria-labelledby="reservas-pendientes-tab">
+					<div
+						class="table-responsive">
+
+						<!-- Tabla de reservas pendientes -->
+						<table
+							class="table table-striped ">
+							<!-- Encabezado de la tabla -->
+							<thead>
 								<tr>
-									<!-- Datos de la reserva -->
-									<td>{{ reserva.tour.ruta.titulo }}</td>
-									<td>{{ reserva.tour.fecha|date('Y-m-d') }}</td>
-									<td>{{ reserva.tour.hora|date('H:i:s') }}</td>
-									<td>{{ reserva.tour.guia.email }}</td>
-									<td>
-										<span class="asistentes">{{ reserva.asistentes }}</span>
-									</td>
-									<td>
-										<!-- Botones de acciones -->
-										<button data-idreserva="{{ reserva.id }}" class="btn btn-sm btn-outline-primary btn-editar">
-											<i class="fas fa-edit"></i>
-										</button>
-										<button data-idreserva="{{ reserva.id }}" class="btn btn-sm btn-outline-danger btn-eliminar">
-											<i class="fas fa-trash-alt"></i>
-										</button>
-									</td>
+									<th>Ruta</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Contacto Guía</th>
+									<th>Asistentes</th>
+									<th>Acciones</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+							</thead>
+							<!-- Cuerpo de la tabla -->
+							<tbody>
+								{% for reserva in reservasPendientes %}
+									<tr>
+										<!-- Datos de la reserva -->
+										<td>{{ reserva.tour.ruta.titulo }}</td>
+										<td>{{ reserva.tour.fecha|date('Y-m-d') }}</td>
+										<td>{{ reserva.tour.hora|date('H:i:s') }}</td>
+										<td>{{ reserva.tour.guia.email }}</td>
+										<td>
+											<span class="asistentes">{{ reserva.asistentes }}</span>
+										</td>
+										<td>
+											<!-- Botones de acciones -->
+											<button data-idreserva="{{ reserva.id }}" class="btn btn-sm btn-outline-primary btn-editar">
+												<i class="fas fa-edit"></i>
+											</button>
+											<button data-idreserva="{{ reserva.id }}" class="btn btn-sm btn-outline-danger btn-eliminar">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -125,11 +140,11 @@
 				<div class="modal-body">
 					<form id="formValoracion">
 						<div class="form-group">
-							<label for="puntuacionGuia">Puntuación del Guía:</label>
+							<label for="puntuacionGuia">Puntuación del Guía (1-5):</label>
 							<input type="number" class="form-control" id="puntuacionGuia" name="puntuacionGuia" min="1" max="5" required>
 						</div>
 						<div class="form-group">
-							<label for="puntuacionRuta">Puntuación de la Ruta:</label>
+							<label for="puntuacionRuta">Puntuación de la Ruta (1-5):</label>
 							<input type="number" class="form-control" id="puntuacionRuta" name="puntuacionRuta" min="1" max="5" required>
 						</div>
 						<div class="form-group">
@@ -177,6 +192,8 @@ $(document).on('click', '.btn-guardar', function () {
 var asistentes = $(this).closest('tr').find('.asistentes');
 var inputAsistentes = $(this).closest('tr').find('input[type="number"]');
 var nuevosAsistentes = inputAsistentes.val();
+if(nuevosAsistentes<=6){
+	
 
 $.ajax({
 method: "PUT",
@@ -185,7 +202,7 @@ data: {
 asistentes: nuevosAsistentes
 },
 success: function (data) {
-alert("Reserva editada");
+showAlert(' Reserva editada', 2000)
 
 }
 
@@ -196,8 +213,11 @@ $(this).siblings('.btn-valorar').show();
 $(this).siblings('.btn-eliminar').show();
 $(this).siblings('.btn-cancelar').remove();
 $(this).replaceWith (`<button  data-idreserva=${idReservaEditandose} class="  btn-sm btn-outline-primary    btn-editar">
-										<i class="fas fa-edit"></i>`);
+									<i class="fas fa-edit"></i>`);
+}else{
+	showAlert(' El número máximo de asistentes es 6', 2000)
 
+}
 });
 // Manejar click de eliminar
 $(document).on('click', '.btn-eliminar', function () {
@@ -208,10 +228,11 @@ $.ajax({
 method: "DELETE",
 url: "/reservas/" + idReserva,
 success: function (data) {
-alert("Reserva eliminada");
+showAlert(' Reserva eliminada', 2000)
 botonEliminar.closest('tr').remove();
 
 }
+
 
 });
 
@@ -251,7 +272,7 @@ method: "PUT",
 url: "/reservas/valorar/" + idReservaValorandose,
 data: jsondata,
 success: function (data) {
-alert("Valoracion hecha");
+showAlert('Valoración hecha', 2000)
 $('#modalValoracion').modal('hide');
 }
 
@@ -260,6 +281,21 @@ $('#modalValoracion').modal('hide');
 
 });
 })
+
+function showAlert(message, timeout) { // Muestra el modal
+$('#alertMessage').text(message);
+$('#customAlert').css('display', 'block');
+
+// Cierra automáticamente después de 'timeout' milisegundos
+setTimeout(function () {
+$('#customAlert').css('display', 'none');
+}, timeout);
+}
+
+// Cierra el modal cuando se hace clic en el botón de cerrar
+$('.close').on('click', function () {
+$('#customAlert').css('display', 'none');
+});
 	</script>
 
 	<script>
@@ -271,4 +307,7 @@ $(this).tab('show');
 });
 });
 	</script>
+
+	<link rel="stylesheet" href="{{ asset('styles/alertmodal.css') }}">
+
 {% endblock %}

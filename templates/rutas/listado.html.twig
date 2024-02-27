@@ -69,24 +69,7 @@
 
 				</td>
 
-				<td class="actions actions-as-dropdown">
-					<div class="dropdown dropdown-actions">
-						<a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<svg xmlns="http://www.w3.org/2000/svg" height="21" width="21" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                                                </svg>
-						</a>
-
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item action-detail" href="http://localhost:8000/admin?crudAction=detail&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="detail"><span class="action-label">Show</span></a>
-
-							<a class="dropdown-item action-edit" href="http://localhost:8000/admin?crudAction=edit&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="edit"><span class="action-label">Edit</span></a>
-
-							<a class="dropdown-item action-delete text-danger" href="http://localhost:8000/admin?crudAction=delete&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2&amp;referrer=http://localhost:8000/admin?crudAction%3Dindex%26crudControllerFqcn%3DApp%255CController%255CAdmin%255CItemCrudController" data-action-name="delete" formaction="http://localhost:8000/admin?crudAction=delete&amp;crudControllerFqcn=App%5CController%5CAdmin%5CItemCrudController&amp;entityId=2" data-bs-toggle="modal" data-bs-target="#modal-delete"><span class="action-label">Delete</span></a>
-
-						</div>
-					</div>
-				</td>
+				
 			</tr>
         {% endfor %}
 
@@ -111,47 +94,11 @@
 		<input type="hidden" name="token" value="33213777ebf9ae475b6cf48cf0c8.O837P-01OHV4helBoY60TeDcG4Sv9APSNMmT0XMkSKk.Ur2jTrh3dRka2rsr-NncdJDpXdH6l1GFQ6LXnxlMBeAI-soSjltgPCzH2Q">
 	</form>
 
-	<div id="modal-delete" class="modal fade" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<h4>Do you really want to delete this item?</h4>
-					<p>There is no undo for this operation.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
-                    <span class="btn-label">Cancel</span>
-                </button>
-
-					<button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="modal-delete-button" form="delete-form">
-                    <span class="btn-label">Delete</span>
-                </button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 
 
-	<div id="modal-batch-action" class="modal fade" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<h4 id="batch-action-confirmation-title">You are going to apply the "%action_name%" action to %num_items% item(s).</h4>
-					<p>There is no undo for this operation.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
-                    <span class="btn-label">Cancel</span>
-                </button>
-					<button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="modal-batch-action-button">
-                    <i class="fa fa-fw fa-check"></i>
-                    <span class="btn-label">Proceed</span>
-                </button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 </div>
 

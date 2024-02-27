@@ -111,19 +111,22 @@
                                 </div>
                                 <div class="tour-card__text">
                                 ${ruta[1].descripcion}`;
-                                if(ruta[1].cancelado){
-                                    nuevoHTML += `<br>
-                                    <strong>El tour ha sido cancelado </strong> `
-                                }else{
-                                    if(disponibilidad>0){
+                                if(inputFecha!=""){
+                                    if(ruta[1].cancelado){
                                         nuevoHTML += `<br>
-                                        <strong>Quedan ${disponibilidad} plazas!</strong>`
+                                        <strong>El tour ha sido cancelado </strong> `
                                     }else{
-                                        nuevoHTML += `<br>
-                                        <strong>No quedan plazas plazas!</strong>`
+                                        if(disponibilidad>0){
+                                            nuevoHTML += `<br>
+                                            <strong>Quedan ${disponibilidad} plazas!</strong>`
+                                        }else{
+                                            nuevoHTML += `<br>
+                                            <strong>No quedan plazas plazas!</strong>`
+                                        }
+                                        
                                     }
-                                    
                                 }
+                                
                                
                                     
                                 

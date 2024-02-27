@@ -79,8 +79,7 @@
 																<form method="post">
 																	<div class="form-group">
 																		<label for="numeroAsistentes">Número de Asistentes (Máximo 6):</label>
-																		<input type="number" class="form-control" id="numeroAsistentes" name="numeroAsistentes" max="6" required>
-																		<small class="form-text text-muted">Máximo de 6 asistentes por reserva.</small>
+																		<input type="number" class="form-control" id="numeroAsistentes{{ tour.id }}" name="numeroAsistentes" max="6" required>
 																	</div>
 																</form>
 															</div>
@@ -166,26 +165,35 @@
 		</div>
 	</div>
 
+	
+<div id="customAlert" class="modal-alert">
+  <div class="modal-alert-content">
+    <span class="close">&times;</span>
+    <p id="alertMessage"></p>
+  </div>
+</div>
+
 	<script src="{{ asset('js/vistaruta.js') }}"></script>
 	<script>
 		function initMap() {
-var latitud = parseFloat(document.getElementById("latitud").value);
-var longitud = parseFloat(document.getElementById("longitud").value);
+		var latitud = parseFloat(document.getElementById("latitud").value);
+		var longitud = parseFloat(document.getElementById("longitud").value);
 
-var ubicacion = {
-lat: latitud,
-lng: longitud
-};
+		var ubicacion = {
+		lat: latitud,
+		lng: longitud
+		};
 
-var map = new google.maps.Map(document.getElementById('map'), {
-zoom: 15, // Nivel de zoom
-center: ubicacion // Centrar el mapa en la ubicación seleccionada
-});
+		var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 15, // Nivel de zoom
+		center: ubicacion // Centrar el mapa en la ubicación seleccionada
+		});
 
-var marker = new google.maps.Marker({position: ubicacion, map: map});
-}
+		var marker = new google.maps.Marker({position: ubicacion, map: map});
+		}
 	</script>
 	<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDeXNRT5we4NFDzjajuV1_T1cv_Wgbc-ic&callback=initMap' async defer></script>
 	<!-- Bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{{ asset('styles/alertmodal.css') }}">
 {% endblock %}

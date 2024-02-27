@@ -6,7 +6,7 @@ use App\Repository\InformeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InformeRepository::class)]
-class Informe
+class Informe implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -83,4 +83,15 @@ class Informe
         return $this;
     }
 
+    public function jsonSerialize() {
+        
+        return [
+            'id' => $this->id,
+            'foto'=>$this->foto,
+            'observaciones' => $this->observaciones,
+            'dinerorecaudado' => $this->dinerorecaudado,
+            
+
+        ];
+    }
 }

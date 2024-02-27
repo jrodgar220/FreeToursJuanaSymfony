@@ -27,10 +27,28 @@ i.warning {
 
 }
 
+i.warningred {
+    color: rgb(224, 31, 17) !important;
+
+}
+
+i.dropdown {
+    color: rgb(25, 62, 92) !important;
+
+}
 .table.datagrid thead th,
 .btn-primary {
     background-color: #51738a;
 }
 .btn-primary:hover {
     background-color: #51738a;
+}
+
+.table.datagrid thead th{
+    color: white;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
 }

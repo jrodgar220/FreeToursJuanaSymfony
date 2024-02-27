@@ -184,6 +184,7 @@ class Tour implements \JsonSerializable
             'hora' => $this->hora,
             'cancelado' => $this->cancelado,
             'ruta' => $this->ruta,
+            'informe' => $this->informe,
             'guia' => $this->guia,
             'reservas' => $reservas,
 

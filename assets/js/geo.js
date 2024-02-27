@@ -6,6 +6,31 @@ window.addEventListener("load", function(){
         var labelElement = document.querySelector('label[for="Item_latitud"]');
         if(labelElement){
 
+             // Crear un elemento de botón
+            var buttonElement = document.createElement('input');
+            buttonElement.type = 'button';
+            buttonElement.value = 'Buscar localización';
+            buttonElement.id="buscar";
+            var nuevoCodigoHTML = `
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <h2>Ingrese una dirección</h2>
+                    <input type="text" id="direccion-modal">
+                    <div id="mapa-modal"></div>
+                    <button id="buscar-modal">Buscar</button>
+                    <button class="modal-button" id="volver">Guardar</button>
+                </div>
+            </div> 
+            `;
+    
+           
+    
+    
+            // Añadir el botón después del elemento label en el DOM
+            labelElement.parentNode.parentElement.insertBefore(buttonElement, labelElement.parentElement);
+        
+             // Agrega el nuevo código HTML después del botón en el DOM
+             buttonElement.insertAdjacentHTML('afterend', nuevoCodigoHTML);
         
         // Agregar Google Maps API
         var googleMapsScript = document.createElement('script');
@@ -15,6 +40,8 @@ window.addEventListener("load", function(){
 
         var jqueryScript = document.createElement('script');
         jqueryScript.src = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js';
+        document.head.appendChild(jqueryScript);
+
         jqueryScript.onload = function() {
             // Tu código que utiliza jQuery aquí
             $(document).ready(function() {
@@ -49,35 +76,12 @@ window.addEventListener("load", function(){
                 });
             }); 
         };
-        document.head.appendChild(jqueryScript);
 
-
-        // Crear un elemento de botón
-        var buttonElement = document.createElement('button');
-        buttonElement.textContent = 'Buscar localización';
-        buttonElement.id="buscar";
-        
-
-        var nuevoCodigoHTML = `
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <h2>Ingrese una dirección</h2>
-                <input type="text" id="direccion-modal">
-                <div id="mapa-modal"></div>
-                <button id="buscar-modal">Buscar</button>
-                <button class="modal-button" id="volver">Guardar</button>
-            </div>
-        </div> 
-        `;
 
        
+        
 
-
-        // Añadir el botón después del elemento label en el DOM
-        labelElement.parentNode.parentElement.insertBefore(buttonElement, labelElement.parentElement);
-    
-         // Agrega el nuevo código HTML después del botón en el DOM
-         buttonElement.insertAdjacentHTML('afterend', nuevoCodigoHTML);
+     
 
            
     }

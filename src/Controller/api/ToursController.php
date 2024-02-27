@@ -153,6 +153,7 @@ class ToursController extends AbstractController
                 for($i=0;$i<count($body);$i++){
                     $usuario=$body[$i]['usuario'];
                     $reserva=$reservaRepository->findByTourAndUser($tour->getId(),$usuario);
+                    
                     $reserva->setAsistentes($body[$i]['asistentes']);
                     $entityManager->persist($reserva);
 

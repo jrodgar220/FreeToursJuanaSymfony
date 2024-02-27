@@ -40,12 +40,14 @@ class RutasController extends AbstractController
                     $tour->setRuta($ruta);
                     $ruta->addTour($tour);
                    $tours[]=$tour;
+
                 }
 
                
-            
-        return $tours;
+
         }
+        return $tours;
+
 
     }
    

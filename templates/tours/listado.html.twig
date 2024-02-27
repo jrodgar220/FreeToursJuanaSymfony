@@ -1,16 +1,129 @@
 {% include '@EasyAdmin/layout.html.twig' %}
 
 {% block body %}
-<div id="tour">
-	
-	<div id="tours"></div>
+	<style>
 
-	
+		.tabs {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			overflow: hidden; /* Para evitar que los elementos floten */
+			background-color: #f1f1f1; /* Color de fondo de la barra de navegación */
+			border-bottom: 1px solid #ccc; /* Línea de separación en la parte inferior */
+		}
 
-</div>
+		.tabs li {
+			line-height: 50px;
+			padding-left: 10px;
+			padding-right: 10px;
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{ asset('js/listadotours.js') }}"></script>
+			margin: right !important;
+			float: left; /* Para alinear los elementos horizontalmente */
+			height: 50px; /* Altura de los elementos */
+		}
 
+		.tabs li a {
+
+			display: block;
+			color: black;
+			text-align: center;
+			padding: 20px 16px; /* Aumentar el relleno para hacer los elementos más altos */
+			text-decoration: none;
+			transition: background-color 0.3s; /* Transición suave para el cambio de color de fondo */
+			border: 1px solid transparent; /* Borde transparente inicial */
+			border-radius: 5px; /* Bordes redondeados */
+		}
+
+		.tabs li a:hover {
+			background-color: #ddd; /* Cambiar color de fondo al pasar el cursor */
+		}
+
+		.tab-content {
+			display: none;
+		}
+
+		.tab-content.active {
+			display: block;
+		}
+
+		/* Estilo para el elemento seleccionado */
+		.tabs li.active a {
+			background-color: #ccc; /* Color de fondo del elemento seleccionado */
+			color: white; /* Color del texto del elemento seleccionado */
+			border-color: #999; /* Color del borde del elemento seleccionado */
+		}
+
+		.tabs li.current {
+			background-color: #51738a; /* Color de fondo del elemento seleccionado */
+			color: white; /* Color del texto del elemento seleccionado */
+			border-color: #999; /* Color del borde del elemento seleccionado */
+		}
+
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 10% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%; /* Ancho del modal */
+		}
+
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+
+	<!-- Modal -->
+	<div id="informeModal" class="modal">
+		<div class="modal-content">
+			<span class="close"  style="float: right;">&times;</span>
+			<!-- Aquí se mostrará la información del informe -->
+			<div id="informeInfo"></div>
+		</div>
+	</div>
+
+
+	<div id="tour">
+		<ul class="tabs">
+			<li class="tab-link " data-tab="tours-pasados">Tours Pasados</li>
+			<li class="tab-link" data-tab="tours-pendientes">Tours Pendientes</li>
+		</ul>
+
+		<div id="tours-pasados" class="tab-content"></div>
+		<div id="tours-pendientes" class="tab-content"></div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{{ asset('js/listadotours.js') }}"></script>
+	<script>
+		$(document).ready(function () {
+$('.tab-link').click(function () {
+var tabId = $(this).data('tab');
+$('.tab-content').removeClass('active');
+$('#' + tabId).addClass('active');
+});
+});
+	</script>
 {% endblock %}

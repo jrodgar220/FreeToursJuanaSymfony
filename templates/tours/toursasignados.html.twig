@@ -83,75 +83,81 @@
 				<div
 					class="tab-pane fade show active" id="tours-pasados" role="tabpanel" aria-labelledby="tours-pasados-tab">
 					<!-- Tabla de tours pasados -->
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>Ruta</th>
-								<th>Fecha</th>
-								<th>Hora</th>
-								<th>Asistentes</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for tour in toursPasados %}
-								<tr>
-									<td>{{ tour.ruta.titulo }}</td>
-									<td>{{ tour.fecha|date('Y-m-d') }}</td>
-									<td>{{ tour.hora|date('H:i:s') }}</td>
-									<td>
-										<span class="asistentes">{{ tour.getAsistentes() }}</span>
-									</td>
-									<td>
-										{% if tour.informe is not null %}
-											<p>
-												Ya se ha generado el informe.
-											</p>
-										{% else %}
-											<button data-idtour="{{ tour.id }}" class="btn-orange btn-sm btn-outline-success btn-informe">
-												<i class="fa fa-file-alt"></i>
-												Generar Informe
-											</button>
-										{% endif %}
+					<div class="table-responsive">
 
-									</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-				<div
-					class="tab-pane fade" id="tours-pendientes" role="tabpanel" aria-labelledby="tours-pendientes-tab">
-					<!-- Tabla de tours pendientes -->
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>Ruta</th>
-								<th>Fecha</th>
-								<th>Hora</th>
-								<th>Asistentes</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for tour in toursPendientes %}
+						<table class="table table-striped">
+							<thead>
 								<tr>
-									<td>{{ tour.ruta.titulo }}</td>
-									<td>{{ tour.fecha|date('Y-m-d') }}</td>
-									<td>{{ tour.hora|date('H:i:s') }}</td>
-									<td>
-										<span class="asistentes">{{ tour.getAsistentes() }}</span>
-									</td>
-									<td>
-										<button data-idtour="{{ tour.id }}" class="btn-sm btn-outline-primary btn-pasar-lista">
-											<i class="far fa-check-circle"></i>
-											Pasar lista
-										</button>
-									</td>
+									<th>Ruta</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Asistentes</th>
+									<th>Acciones</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{% for tour in toursPasados %}
+									<tr>
+										<td>{{ tour.ruta.titulo }}</td>
+										<td>{{ tour.fecha|date('Y-m-d') }}</td>
+										<td>{{ tour.hora|date('H:i:s') }}</td>
+										<td>
+											<span class="asistentes">{{ tour.getAsistentes() }}</span>
+										</td>
+										<td>
+											{% if tour.informe is not null %}
+												<p>
+													Ya se ha generado el informe.
+												</p>
+											{% else %}
+												<button data-idtour="{{ tour.id }}" class="btn-orange btn-sm btn-outline-success btn-informe">
+													<i class="fa fa-file-alt"></i>
+													Generar Informe
+												</button>
+											{% endif %}
+
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="tours-pendientes" role="tabpanel" aria-labelledby="tours-pendientes-tab">
+					<div
+						class="table-responsive">
+
+						<!-- Tabla de tours pendientes -->
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Ruta</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Asistentes</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for tour in toursPendientes %}
+									<tr>
+										<td>{{ tour.ruta.titulo }}</td>
+										<td>{{ tour.fecha|date('Y-m-d') }}</td>
+										<td>{{ tour.hora|date('H:i:s') }}</td>
+										<td>
+											<span class="asistentes">{{ tour.getAsistentes() }}</span>
+										</td>
+										<td>
+											<button data-idtour="{{ tour.id }}" class="btn-sm btn-outline-primary btn-pasar-lista">
+												<i class="far fa-check-circle"></i>
+												Pasar lista
+											</button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

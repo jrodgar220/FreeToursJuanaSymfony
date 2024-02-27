@@ -120,7 +120,7 @@ class ReservasController extends AbstractController
 
             $mailerService->mandaemail($cuerpomensaje, "Tour reservado", $mail,$pdfContent, 'file.pdf');
         
-            return new JsonResponse ($reserva, Response::HTTP_OK);
+            return new JsonResponse ($reserva, Response::HTTP_CREATED);
         }
         return new JsonResponse ("NO AUTORIZADO", Response::HTTP_FORBIDDEN);
     }

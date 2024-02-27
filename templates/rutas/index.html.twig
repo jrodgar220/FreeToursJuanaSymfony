@@ -1,12 +1,16 @@
 {% include '@EasyAdmin/layout.html.twig'  %}
 
 
+<div id="customAlert" class="modal-alert">
+  <div class="modal-alert-content">
+    <span class="close">&times;</span>
+    <p id="alertMessage"></p>
+  </div>
+</div>
 
 <div id="ruta"  >
     <form id="ruta_form" enctype="multipart/form-data">
-    <h2>Nueva Ruta</h2>
 
-    <button type="submit" id="procesar" class="btn btn-primary">Guardar</button>
 
     <div class="row"  >
 
@@ -144,6 +148,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('styles/rutas.css') }}">
+<link rel="stylesheet" href="{{ asset('styles/alertmodal.css') }}">
 <link rel="stylesheet" href="{{ asset('styles/modalgeo.css') }}">
 
 
